@@ -1,0 +1,121 @@
+/*
+Theme Name: Chris Morata Base Template
+Description: This is a base theme for Chris Morata website projects.
+Author: Chris Morata
+Author URI: http://www.chrismorata.com
+
+*/
+
+@import url('resources/css/normalize.css');
+
+
+/************************************************
+***************  PAGE ELEMENTS  *****************
+************************************************/
+
+body{ }
+
+h1{}
+
+h2{}
+
+h3{}
+
+h4{}
+
+h5{}
+
+h6{}
+
+p{}
+
+a{}
+a:hover{}
+
+input[type="button"], input[type="submit"], button, label{ cursor: pointer;}
+
+/************************************************
+************  STRUCTURAL ELEMENTS  **************
+************************************************/
+#container {width: 960px; margin: 0 auto;}
+
+
+/*-------------HEADER STYLES-------------*/
+
+
+
+/*--------------BODY STYLES--------------*/
+
+/*Blog*/
+.single #comments { float: left; margin-top: 30px; width: 100%; }
+.single .commentlist { float: left; position: relative; width: 100%; }
+.single .commentlist > li { padding: 10px; }
+.single .comment-author img { float: left; margin-right: 5px; }
+.single .commentmetadata { position: absolute; right: 10px; top: 10px; }
+
+#respond { float: left; margin-top: 30px; }
+
+/*-------------FOOTER STYLES-------------*/
+
+
+
+/*--------------FORM STYLES--------------*/
+
+
+/************************************************
+**************  GLOBAL CLASSES  *****************
+************************************************/
+.alignleft { float: left; margin-right: 15px; }
+.alignright { float: right; margin-left: 15px; }
+
+.left{float: left;}
+.right{float: right;}
+.clear{clear: both;}
+
+.textleft{text-align: left;}
+.textright{text-align: right;}
+.textcenter{text-align: center;}
+
+.cf:after{ content: ''; display: block; visibility: hidden; clear: both; height: 0px; margin: 0px;}
+
+/*----------BUTTONS----------*/
+
+
+
+/************************************************
+*************  IE SPECIFIC STYLES  **************
+************************************************/
+
+
+
+
+
+
+/************************************************
+****************  MEDIA QUERIES  ****************
+************************************************/
+
+@media only screen and (min-width: 480px) {
+
+}
+
+@media only screen and (min-width: 768px) {
+	
+}
+
+@media only screen and (min-width: 992px) {
+
+}
+
+@media only screen and (min-width: 1382px) {
+
+}
+
+
+/************************************************
+***************  PRINT STYLES  ******************
+************************************************/
+@media print{
+	*{background:transparent!important;color:#000!important;text-shadow:none!important;filter:none!important;-ms-filter:none!important}a{text-decoration:underline}a:visited{text-decoration:underline}a[href]:after{content:" (" attr(href) ")"}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after{content:""}a[href^="javascript:"]:after{content:""}a[href^="#"]:after{content:""}pre{border:1px solid #999;page-break-inside:avoid}blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr{page-break-inside:avoid}img{page-break-inside:avoid;max-width:100%!important}@page{margin:.5cm}p{orphans:3;widows:3}h2{orphans:3;widows:3;page-break-after:avoid}h3{orphans:3;widows:3;page-break-after:avoid}
+	body{ width: 100%; font-size: 12px; color: #000; background: #fff;}
+}
