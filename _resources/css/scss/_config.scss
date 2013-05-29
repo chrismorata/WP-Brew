@@ -1,0 +1,17 @@
+// Grid Settings
+$page-width: 960px;
+$column-count: 12;
+$column-width: $page-width/$column-count;
+$column-gutter: 30px;
+
+// Media Query Settings
+$mobile-breakpoint: 320px;
+$mobile-horizontal-breakpoint: 480px;
+$small-tablet-breakpoint: 600px;
+$tablet-breakpoint: 768px;
+$desktop-breakpoint: 960px;
+
+// Typography
+$default-font: 'Proxima Nova', Helvetica, Arial, sans-serif;
+$base-font-size: 16px;
+$base-text-color: #333;
