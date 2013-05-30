@@ -1,0 +1,131 @@
+// Functions
+@function convert-number-to-word($num) {
+  $count:1;
+  @each $word in one,two,three,four,five,six,seven,eight,nine,ten,eleven,
+    twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen,
+    twenty,twentyone,twentytwo,twentythree,twentyfour{
+    @if ($count == $num) { @return $word; }
+    $count: $count + 1;
+  }
+  @return "invalid";
+}
+
+
+// CSS Helpers
+@mixin simple-gradient($from, $to, $from-percentage: 0%, $to-percentage: 100%){  
+    background-color: $to; /* Old browsers */
+    background-image: -moz-linear-gradient(top, $from $from-percentage, $to $to-percentage); /* FF3.6+ */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop($from-percentage,$from), color-stop($to-percentage,$to)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, $from $from-percentage,$to $to-percentage); /* Chrome10+,Safari5.1+ */
+    background-image: -o-linear-gradient(top, $from $from-percentage,$to $to-percentage); /* Opera 11.10+ */
+    background-image: -ms-linear-gradient(top, $from $from-percentage,$to $to-percentage); /* IE10+ */
+    background-image: linear-gradient(to bottom, $from $from-percentage,$to $to-percentage); /* W3C */
+    background-repeat: no-repeat;
+}
+
+@mixin transition($property: all, $duration: 1s, $timing: ease-in-out, $delay: '') { 
+    -webkit-transition: $property $duration $timing;
+      -moz-transition: $property $duration $timing;
+      -o-transition: $property $duration $timing;
+      transition: $property $duration $timing;
+}
+
+@mixin animate($duration: 1s, $delay: 0s, $iterations: 1) { 
+    -webkit-animation-duration: $duration;
+    -webkit-animation-delay: $delay;
+    -webkit-animation-iteration-count: $iterations;
+    -webkit-animation-fill-mode: forwards;
+    
+    -moz-animation-duration: $duration;
+    -moz-animation-delay: $delay;
+    -moz-animation-iteration-count: $iterations;
+    -moz-animation-fill-mode: forwards;
+    
+    -o-animation-duration: $duration;
+    -o-background-sizeanimation-delay: $delay;
+    -o-animation-iteration-count: $iterations;
+    -o-animation-fill-mode: forwards;
+    
+    -ms-animation-duration: $duration;
+    -ms-background-sizeanimation-delay: $delay;
+    -ms-animation-iteration-count: $iterations;
+    -ms-animation-fill-mode: forwards;
+    
+    animation-duration: $duration;
+    animation-delay: $delay;
+    animation-iteration-count: $iterations;
+    animation-fill-mode: forwards;
+}
+
+@mixin box-sizing($box-sizing) { 
+    -webkit-box-sizing: $box-sizing;
+    -moz-box-sizing: $box-sizing;
+    box-sizing: $box-sizing;
+}
+
+@mixin border-radius($radius){  
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin box-shadow($top, $left: 0, $blur: 0, $color: #000, $inset:"") {
+    @if $top == "none"{
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    } @else {  
+        -webkit-box-shadow: #{$inset} $top $left $blur $color;
+        -moz-box-shadow: #{$inset} $top $left $blur $color;
+        box-shadow: #{$inset} $top $left $blur $color;
+    }
+}
+
+
+// Responsive Helpers
+@function calc-percent($target, $container: $page-width) {  
+    @return percentage( ($target/$container) );
+}
+
+@function convert-em($font-size, $base-size: $base-font-size){  
+    @return #{$font-size/$base-font-size}em;
+}
+
+@mixin respond-to($breakpoint, $width-value:"min") { 
+    @media screen and (#{$width-value}-width: $breakpoint) { @content }
+}
+
+@mixin retinafy(){  
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi){ @content }
+}
+
+@mixin device-type($namespace:"") { 
+    .#{$namespace}-one-quarter{ width: 25%; }
+    .#{$namespace}-one-third{ width: 33.33333%; }
+    .#{$namespace}-one-half{ width: 50%; }
+    .#{$namespace}-two-thirds{ width: 66.66666%; }
+    .#{$namespace}-three-quarters{ width: 75%; }
+    .#{$namespace}-five-sixths{ width: 83.33333%; }
+}
+
+
+// Browser Prefixing
+@mixin support-ie($version) {  
+    .#{$version} & {
+        @content
+    }
+}
+
+
+// Clearfix
+@mixin clearfix {
+    &:before,
+    &:after {
+        content:"";
+        display:table;
+    }
+    &:after {
+        clear:both;
+    }
+    zoom:1;
+}

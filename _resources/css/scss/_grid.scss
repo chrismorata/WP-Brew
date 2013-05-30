@@ -1,0 +1,91 @@
+// Border-box Sizing
+*{ @include box-sizing(border-box); }
+
+// Containers
+img{ max-width: 100%; }
+
+.container{  
+    @include clearfix();
+    max-width: $page-width;
+    margin: 0 auto;
+    
+    &.primary{
+        max-width: $page-width + ($column-gutter * 2);
+    }
+    
+    &.padded{  
+        padding: 1em 0;    
+    }
+}
+
+// Grid Elements
+.grid{  
+    @extend .cf;  
+    list-style: none;
+    margin: 0;    
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-left: calc-percent($column-gutter, $page-width) * -1;   
+    
+    @include respond-to($desktop-breakpoint){
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.grid-unit{
+    width: 100%;    
+    padding-left: calc-percent($column-gutter, $page-width);
+    float: left;
+    
+    &.centered{ margin: 0 auto; float: none; }
+}
+
+// Set classes for mobile viewport
+@include device-type("mobile");
+
+@include respond-to($small-tablet-breakpoint) {  
+    @include device-type("tablet");    
+}
+
+// Set classes for desktop viewports
+@include respond-to($desktop-breakpoint) {
+            
+    @for $i from 1 through $column-count {
+        @if $i == 1 {
+            .one-twelfth { width: 8.33333%; }
+        } @elseif $i == 12 {  
+            .whole { width: 100%; float: none; }
+        } @else{ 
+            .#{convert-number-to-word($i)}-twelfths { width: calc-percent($i, $column-count); }
+        }
+    }
+    
+    .grid-unit{          
+        &.push-left-one-twelfth{
+            margin-left: calc-percent(1 * $column-width, $page-width);
+        }
+        &.push-left-two-twelfths{
+            margin-left: calc-percent(2 * $column-width, $page-width);
+        }
+        &.push-left-three-twelfths{
+            margin-left: calc-percent(3 * $column-width, $page-width);
+        }
+        &.push-left-four-twelfths{
+            margin-left: calc-percent(4 * $column-width, $page-width);
+        }
+        &.push-left-five-twelfths{
+            margin-left: calc-percent(5 * $column-width, $page-width);
+        }
+        &.push-left-six-twelfths{
+            margin-left: calc-percent(6 * $column-width, $page-width);
+        }
+        &.push-right-one-twelfth{
+            margin-right: calc-percent(1 * $column-width, $page-width);
+        }
+    }
+    
+}
+
+
+
