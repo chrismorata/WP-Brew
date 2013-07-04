@@ -53,34 +53,34 @@ img{ max-width: 100%; }
             
     @for $i from 1 through $column-count {
         @if $i == 1 {
-            .one-twelfth { width: 8.33333%; }
-        } @elseif $i == 12 {  
+            .one-#{$column-count-label} { width: 8.33333%; }
+        } @elseif $i == $column-count {  
             .whole { width: 100%; float: none; }
         } @else{ 
-            .#{convert-number-to-word($i)}-twelfths { width: calc-percent($i, $column-count); }
+            .#{convert-number-to-word($i)}-#{$column-count-label + "s"} { width: calc-percent($i, $column-count); }
         }
     }
     
     .grid-unit{          
-        &.push-left-one-twelfth{
+        &.push-left-one-#{$column-count-label}{
             margin-left: calc-percent(1 * $column-width, $page-width);
         }
-        &.push-left-two-twelfths{
+        &.push-left-two-#{$column-count-label + "s"}{
             margin-left: calc-percent(2 * $column-width, $page-width);
         }
-        &.push-left-three-twelfths{
+        &.push-left-three-#{$column-count-label + "s"}{
             margin-left: calc-percent(3 * $column-width, $page-width);
         }
-        &.push-left-four-twelfths{
+        &.push-left-four-#{$column-count-label + "s"}{
             margin-left: calc-percent(4 * $column-width, $page-width);
         }
-        &.push-left-five-twelfths{
+        &.push-left-five-#{$column-count-label + "s"}{
             margin-left: calc-percent(5 * $column-width, $page-width);
         }
-        &.push-left-six-twelfths{
+        &.push-left-six-#{$column-count-label + "s"}{
             margin-left: calc-percent(6 * $column-width, $page-width);
         }
-        &.push-right-one-twelfth{
+        &.push-right-one-#{$column-count-label + "s"}{
             margin-right: calc-percent(1 * $column-width, $page-width);
         }
     }
