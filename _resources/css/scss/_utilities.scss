@@ -57,28 +57,10 @@
     animation-fill-mode: forwards;
 }
 
-@mixin box-sizing($box-sizing) { 
-    -webkit-box-sizing: $box-sizing;
-    -moz-box-sizing: $box-sizing;
-    box-sizing: $box-sizing;
-}
-
-@mixin border-radius($radius){  
-    -webkit-border-radius: $radius;
-    -moz-border-radius: $radius;
-    border-radius: $radius;
-}
-
-@mixin box-shadow($top, $left: 0, $blur: 0, $color: #000, $inset:"") {
-    @if $top == "none"{
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none;
-    } @else {  
-        -webkit-box-shadow: #{$inset} $top $left $blur $color;
-        -moz-box-shadow: #{$inset} $top $left $blur $color;
-        box-shadow: #{$inset} $top $left $blur $color;
-    }
+@mixin css3($property, $value){
+    -moz-#{$property}: $value;
+    -webkit-#{$property}: $value;
+    #{$property}: $value;
 }
 
 
@@ -109,13 +91,18 @@
 }
 
 
-// Browser Prefixing
+// Browser and Feature Prefixing
 @mixin support-ie($version) {  
     .#{$version} & {
         @content
     }
 }
 
+@mixin modernizr($feature){  
+    .no-#{$feature} & {
+        @content
+    }
+} 
 
 // Clearfix
 @mixin clearfix {
