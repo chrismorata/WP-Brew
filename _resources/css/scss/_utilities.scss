@@ -81,16 +81,6 @@
     @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi){ @content }
 }
 
-@mixin device-type($namespace:"") { 
-    .#{$namespace}-one-quarter{ width: 25%; }
-    .#{$namespace}-one-third{ width: 33.33333%; }
-    .#{$namespace}-one-half{ width: 50%; }
-    .#{$namespace}-two-thirds{ width: 66.66666%; }
-    .#{$namespace}-three-quarters{ width: 75%; }
-    .#{$namespace}-five-sixths{ width: 83.33333%; }
-}
-
-
 // Browser and Feature Prefixing
 @mixin support-ie($version) {  
     .#{$version} & {
