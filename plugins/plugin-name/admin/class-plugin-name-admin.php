@@ -3,10 +3,10 @@
  * Plugin Name.
  *
  * @package   Plugin_Name_Admin
- * @author    Your Name <email@example.com>
+ * @author    Chris Morata <chris@chrismorata.com>
  * @license   GPL-2.0+
- * @link      http://example.com
- * @copyright 2014 Your Name or Company Name
+ * @link      http://www.chrismorata.com
+ * @copyright 2014 Chris Morata
  */
 
 /**
@@ -19,7 +19,7 @@
  * @TODO: Rename this class to a proper name for your plugin.
  *
  * @package Plugin_Name_Admin
- * @author  Your Name <email@example.com>
+ * @author  Chris Morata <chris@chrismorata.com>
  */
 class Plugin_Name_Admin {
 
