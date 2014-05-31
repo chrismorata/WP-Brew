@@ -79,6 +79,7 @@ class Plugin_Name {
 		 * Refer To http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
 		 */
 		add_action( '@TODO', array( $this, 'action_method_name' ) );
+		add_action( 'init', array( $this, 'init_post_types' ) );
 		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 
 	}
@@ -303,6 +304,51 @@ class Plugin_Name {
 	 */
 	public function filter_method_name() {
 		// @TODO: Define your filter hook callback here
+	}
+
+	/**
+	 * Register custom post types
+	 *
+	 * @since    1.0.0
+	 */
+	public function init_post_types() {
+		$labels = array(
+			'name'                => _x( 'Post Types', 'Post Type General Name', 'text_domain' ),
+			'singular_name'       => _x( 'Post Type', 'Post Type Singular Name', 'text_domain' ),
+			'menu_name'           => __( 'Post Type', 'text_domain' ),
+			'parent_item_colon'   => __( 'Parent Item:', 'text_domain' ),
+			'all_items'           => __( 'All Items', 'text_domain' ),
+			'view_item'           => __( 'View Item', 'text_domain' ),
+			'add_new_item'        => __( 'Add New Item', 'text_domain' ),
+			'add_new'             => __( 'Add New', 'text_domain' ),
+			'edit_item'           => __( 'Edit Item', 'text_domain' ),
+			'update_item'         => __( 'Update Item', 'text_domain' ),
+			'search_items'        => __( 'Search Item', 'text_domain' ),
+			'not_found'           => __( 'Not found', 'text_domain' ),
+			'not_found_in_trash'  => __( 'Not found in Trash', 'text_domain' ),
+		);
+		$args = array(
+			'label'               => __( 'post_type', 'text_domain' ),
+			'description'         => __( 'Post Type Description', 'text_domain' ),
+			'labels'              => $labels,
+			'supports'            => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'revisions', 'page-attributes' ),
+			'taxonomies'          => array( 'category', 'post_tag' ),
+			'hierarchical'        => false,
+			'public'              => true,
+			'show_ui'             => true,
+			'show_in_menu'        => true,
+			'show_in_nav_menus'   => true,
+			'show_in_admin_bar'   => true,
+			'menu_position'       => 5,
+			'menu_icon'           => '',
+			'can_export'          => true,
+			'has_archive'         => true,
+			'exclude_from_search' => false,
+			'publicly_queryable'  => true,
+			'capability_type'     => 'page',
+			'rewrite'             => array( 'slug' => '' )
+		);
+		register_post_type( 'post_type', $args );
 	}
 
 }
