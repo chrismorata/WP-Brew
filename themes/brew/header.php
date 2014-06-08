@@ -23,10 +23,10 @@
 
 <body <?php body_class(); ?>>
 	<!--[if lt IE 8]>
-        <div class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</div>
+        <div class="browser-message">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.</div>
     <![endif]-->
 	        
-    <section id="container">
+    <section class="container">
 		<header>
 			<?php wp_nav_menu( array('menu' => 'Main', 'container' => false, )); ?>
 		</header>
