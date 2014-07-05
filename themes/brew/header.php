@@ -28,5 +28,6 @@
 	        
     <section class="container">
 		<header>
-			<?php wp_nav_menu( array('menu' => 'Main', 'container' => false, )); ?>
+			<a class="logo" href="<?php bloginfo('url') ?>"><?php bloginfo('name') ?></a>
+			<?php wp_nav_menu( array('theme_location' => 'main-navigation', 'container' => false, 'menu_class' => 'main-navigation navigation horizontal' )); ?>
 		</header>

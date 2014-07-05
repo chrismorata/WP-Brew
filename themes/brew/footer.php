@@ -1,10 +1,10 @@
-		<footer>&copy; <?php echo date('Y'); ?></footer>
+		<footer>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?></footer>
 	</section>
     	
-	<script src="<?php bloginfo('template_url');?>/js/plugins.js"></script>
-	<script src="<?php bloginfo('template_url');?>/js/script.js"></script>
-		
-	<?php wp_footer(); ?>
+    <?php wp_footer(); ?>
+
+	<script src="<?php bloginfo('template_url');?>/_resources/js/plugins.js"></script>
+	<script src="<?php bloginfo('template_url');?>/_resources/js/script.js"></script>
 	
 </body>
 </html>
