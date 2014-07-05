@@ -1,30 +1,25 @@
 <?php
 /** 
- * Remove Junk From <head>
+ * Post Thumbnail Functions
  *
- * This gets rid of unnecessary tags that get inserted into the <head>.
+ * These functions are exclusive to post thumbnails and add the various sizes.
  */ 
-remove_action('wp_head', 'rsd_link');
-remove_action('wp_head', 'wp_generator');
-remove_action('wp_head', 'feed_links', 2);
-remove_action('wp_head', 'index_rel_link');
-remove_action('wp_head', 'wlwmanifest_link');
-remove_action('wp_head', 'feed_links_extra', 3);
-remove_action('wp_head', 'start_post_rel_link', 10, 0);
-remove_action('wp_head', 'parent_post_rel_link', 10, 0);
-remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0);
-
-
-/** 
- * Add Theme Features
- *
- * Add support for various theme features like menus and post thumbnails.
- */ 
-add_theme_support( 'menus' );
 add_theme_support( 'post-thumbnails' );
+set_post_thumbnail_size( 300, 300, false );
+//add_image_size( 'category-thumb', 300, 9999, true );
 
-/* Custom Image Sizes */
-//add_image_size('', 300, 300, true);
+add_filter( 'post_thumbnail_html', 'remove_width_attribute', 10 );
+add_filter( 'image_send_to_editor', 'remove_width_attribute', 10 );
+
+function remove_width_attribute( $html ) {
+   $html = preg_replace( '/(width|height)="\d*"\s/', "", $html );
+   return $html;
+}
+
+function get_avatar_url($get_avatar){
+    preg_match("/src='(.*?)'/i", $get_avatar, $matches);
+    return $matches[1];
+}
 
 
 /** 
@@ -43,6 +38,24 @@ if (function_exists('register_nav_menus')) {
 
 
 /** 
+ * Dynamic Sidebars
+ *
+ * This function provides the theme structure for sidebar widgets.
+ */ 
+if ( function_exists('register_sidebar') ) {
+
+    register_sidebar(array(
+        'name'=> 'Standard Sidebar',
+        'id' => 'sidebar',
+        'before_widget' => '<li id="%1$s" class="widget %2$s">',
+        'after_widget' => '</li>',
+        'before_title' => '<h3 class="widget-title"><span>',
+        'after_title' => '</span></h3>',
+    ));
+}
+
+
+/** 
  * Custom User Profile Fields
  *
  * Adds custom fields to the user profile page in the Wordpress admin.
@@ -54,85 +67,6 @@ function my_custom_userfields( $contactmethods ) {
     return $contactmethods;
 }
 add_filter('user_contactmethods','my_custom_userfields',10,1);
- 
-
-/** 
- * Custom Post Types
- *
- * This function registers various post types.
- */
-/*
-add_action( 'init', 'create_post_type' );
-function create_post_types() {
-	register_post_type( 'acme_product',
-		array(
-			'labels' => array(
-				'name' => __( 'Products' ),
-				'singular_name' => __( 'Product' )
-			),
-			'public' => true,
-			'has_archive' => true,
-			'rewrite' => array('slug' => 'products'),
-		)
-	);
-} 
-
-/** 
- * Custom Taxonomies
- *
- * This function registers various custom taxonomies.
- */
-/*
-add_action( 'init', 'create_custom_taxonomies', 0 );
-function create_custom_taxonomies()  {
-
-	$labels = array(
-		'name'                       => 'Categories',
-		'singular_name'              => 'Category',
-		'menu_name'                  => 'Categories',
-		'all_items'                  => 'All Categories',
-		'parent_item'                => 'Parent Category',
-		'parent_item_colon'          => 'Parent Category:',
-		'new_item_name'              => 'New Category',
-		'add_new_item'               => 'Add New Category',
-		'edit_item'                  => 'Edit Category',
-		'update_item'                => 'Update Category',
-		'separate_items_with_commas' => 'Separate categories with commas',
-		'search_items'               => 'Search categories',
-		'add_or_remove_items'        => 'Add or remove categories',
-		'choose_from_most_used'      => 'Choose from the most used categories',
-	);
-	$args = array(
-		'labels'                     => $labels,
-		'hierarchical'               => true,
-		'public'                     => true,
-		'show_ui'                    => true,
-		'show_admin_column'          => true,
-		'show_in_nav_menus'          => true,
-		'show_tagcloud'              => false,
-		'rewrite'                    => array( 'slug' => '' )
-	);
-	register_taxonomy( '[label]', '[post-type]', $args );
-}
-*/
-
-
-/** 
- * Dynamic Sidebars
- *
- * This function provides the theme structure for sidebar widgets.
- */ 
-if ( function_exists('register_sidebar') ) {
-
-    register_sidebar(array(
-    	'name'=> 'Standard Sidebar',
-    	'id' => 'sidebar',
-    	'before_widget' => '<li id="%1$s" class="widget %2$s">',
-    	'after_widget' => '</li>',
-    	'before_title' => '<h3 class="widget-title"><span>',
-    	'after_title' => '</span></h3>',
-    ));
-}
 
 
 /** 
@@ -202,28 +136,6 @@ function my_custom_comments($comment, $args, $depth) {
 	<?php endif; ?>
 		
 <?php
-}
-
-
-/** 
- * Post Thumbnail Functions
- *
- * These functions are exclusive to post thumbnails and add the various sizes.
- */ 
-set_post_thumbnail_size( 300, 300, false );
-//add_image_size( 'category-thumb', 300, 9999, true );
-
-add_filter( 'post_thumbnail_html', 'remove_width_attribute', 10 );
-add_filter( 'image_send_to_editor', 'remove_width_attribute', 10 );
-
-function remove_width_attribute( $html ) {
-   $html = preg_replace( '/(width|height)="\d*"\s/', "", $html );
-   return $html;
-}
-
-function get_avatar_url($get_avatar){
-    preg_match("/src='(.*?)'/i", $get_avatar, $matches);
-    return $matches[1];
 }
 
 
@@ -319,62 +231,6 @@ function get_pagination(){
               'type' => 'list'
          ));
     }
-}
-
-
-/** 
- * Shortcode: Tweets
- *
- * Inserts Twitter tweet widget.
- */
-/*function my_shortocde($atts, $content = null){
-    extract(shortcode_atts(array(
-           'attribute' => 'value'
-        ), $atts));
-    
-    return $attribute;
-    
-}
-add_shortcode('my-shortcode', 'my_shortcode');
-*/
-
-
-/** 
- * Google Analytics
- *
- * This inserts the Google Analytics code to the <head>.
- */ 
-function add_google_analytics() { ?>
-	
-	<script type="text/javascript">
-
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-XXXXXXX-X']);
-	  _gaq.push(['_trackPageview']);
-	
-	  (function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-	
-	</script>
-
-<?php
-}
-add_action('wp_head', 'add_google_analytics');
-
-
-/** 
- * jQuery from CDN
- *
- * This inserts jQuery from Google.
- */ 
-if (!is_admin()) add_action("wp_enqueue_scripts", "my_jquery_enqueue", 11);
-function my_jquery_enqueue() {
-	wp_deregister_script('jquery');
-	wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js", false, null);
-	wp_enqueue_script('jquery');
 }
 
 

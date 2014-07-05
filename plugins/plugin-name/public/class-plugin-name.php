@@ -65,6 +65,21 @@ class Plugin_Name {
 	 */
 	private function __construct() {
 
+		/** 
+		 * Remove Junk From <head>
+		 *
+		 * This gets rid of unnecessary tags that get inserted into the <head>.
+		 */ 
+		remove_action('wp_head', 'rsd_link');
+		remove_action('wp_head', 'wp_generator');
+		remove_action('wp_head', 'feed_links', 2);
+		remove_action('wp_head', 'index_rel_link');
+		remove_action('wp_head', 'wlwmanifest_link');
+		remove_action('wp_head', 'feed_links_extra', 3);
+		remove_action('wp_head', 'start_post_rel_link', 10, 0);
+		remove_action('wp_head', 'parent_post_rel_link', 10, 0);
+		remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0);
+
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
@@ -78,9 +93,16 @@ class Plugin_Name {
 		/* Define custom functionality.
 		 * Refer To http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
 		 */
-		add_action( '@TODO', array( $this, 'action_method_name' ) );
+		/* Actions */
+		//add_action( '@TODO', array( $this, 'action_method_name' ) );
 		add_action( 'init', array( $this, 'init_post_types' ) );
-		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
+
+		/* Filters */
+		//add_filter( '@TODO', array( $this, 'filter_method_name' ) );
+		
+		/* Shortcodes */
+		//add_shortcode('my-shortcode', 'my_shortcode');
+
 
 	}
 
@@ -277,6 +299,12 @@ class Plugin_Name {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
+
+		/* Pull jQuery from CDN */
+		wp_deregister_script('jquery');
+		wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js", false, null);
+		wp_enqueue_script('jquery');
+
 		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
 	}
 
@@ -349,6 +377,20 @@ class Plugin_Name {
 			'rewrite'             => array( 'slug' => '' )
 		);
 		register_post_type( 'post_type', $args );
+	}
+
+
+	/**
+	 * Custom Shortcode Template
+	 *
+	 * @since    1.0.0
+	 */
+	public function my_shortcode($atts, $content = null){
+	    extract(shortcode_atts(array(
+	           'attribute' => 'value'
+	        ), $atts));
+	    
+	    return $attribute;
 	}
 
 }
